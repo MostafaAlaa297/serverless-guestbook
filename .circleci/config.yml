@@ -16,24 +16,22 @@ jobs:
       - checkout
       - run:
           name: "Say hello world!"
-          command: echo "Hello, world!" > output.txt
+          command: echo "Hello, world!" > /tmp/workspace/output.txt
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
-            - hello/output.txt
-            - outputs/*
+            - output.txt
   print_output_file:
     docker:
       - image: circleci/node:13.8.0
 
     steps:
       - checkout
-      - run:
-          name: "display output file content"
-          command: cat output.txt
-
       - attach_workspace:
           at: /tmp/workspace
+      - run:
+          name: "display output file content"
+          command: cat /tmp/workspace/output.txt    
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
