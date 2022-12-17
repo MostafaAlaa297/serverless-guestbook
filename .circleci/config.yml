@@ -39,3 +39,4 @@ workflows:
   say-hello-workflow:
     jobs:
       - say_hello_world_output
+      - print_output_file
